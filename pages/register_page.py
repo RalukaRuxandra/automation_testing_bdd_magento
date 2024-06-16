@@ -8,7 +8,7 @@ from pages.base_page import BasePage
 
 class RegisterPage(BasePage):
     CREATE_ACCOUNT_URL = 'https://magento.softwaretestingboard.com/customer/account/create/'
-    CREATE_ACCOUNT_LINK = (By.XPATH, '//a[@href="https://magento.softwaretestingboard.com/customer/account/create/"]')
+    CREATE_ACCOUNT_LINK = (By.XPATH, '//div[@class="panel header"]//a[normalize-space()="Create an Account"]')
     FIRST_NAME = (By.ID, 'firstname')
     LAST_NAME = (By.ID, 'lastname')
     NEW_EMAIL = (By.ID, 'email_address')
@@ -24,16 +24,16 @@ class RegisterPage(BasePage):
     #TOATE METODELE DE INPUT TRB MODFICATE PENTRU A PUTEA PRIMI UN ARGUMENT
 
     def click_create_account_link(self):
-        self.click(self.CREATE_ACCOUNT_LINK)
+        self.click_elem(self.CREATE_ACCOUNT_LINK)
 
     def check_create_account_url(self):
         return self.actual_url() == self.CREATE_ACCOUNT_URL
 
-    def set_first_name(self):
-        self.send_text(self.FIRST_NAME, 'Miao')
+    def set_first_name(self, first_name):
+        self.send_text(self.FIRST_NAME, first_name)
 
-    def set_last_name(self):
-        self.send_text(self.LAST_NAME, 'Hhhhhhh')
+    def set_last_name(self, last_name):
+        self.send_text(self.LAST_NAME, last_name)
 
     def set_new_email(self):
         email = self.faker.email()
@@ -44,16 +44,16 @@ class RegisterPage(BasePage):
         self.send_text(self.CONFIRM_NEW_PASSWORD, new_password)
 
     def click_create_account_button(self):
-        self.click(self.CREATE_ACCOUNT_BUTTON)
+        self.click_elem(self.CREATE_ACCOUNT_BUTTON)
 
     def check_account_url(self):
-        return self.actual_url() == self.ACCOUNT_URL
+        assert self.actual_url() == self.ACCOUNT_URL
 
     def click_dropdown_arrow(self):
-        self.click(self.DROPDOWN_ARROW)
+        self.click_elem(self.DROPDOWN_ARROW)
 
     def click_sign_out(self):
-        self.click(self.SIGN_OUT_LINK)
+        self.click_elem(self.SIGN_OUT_LINK)
 
     def check_logout_url(self):
-        return self.actual_url() == self.SIGN_OUT_URL
+        assert self.actual_url() == self.SIGN_OUT_URL

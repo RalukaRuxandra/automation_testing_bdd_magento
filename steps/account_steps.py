@@ -1,6 +1,36 @@
 from behave import *
 
 
+@when('I click on the customer menu arrow')
+def step_impl(context):
+    context.account_page.click_customer_menu_arrow()
+
+
+@when('I click on my account')
+def step_impl(context):
+    context.account_page.click_my_account()
+
+
+@when('I click on edit address under default shipping address')
+def step_impl(context):
+    context.account_page.click_change_shipping_address()
+
+
+@when('I put in the required info')
+def step_impl(context):
+    context.account_page.insert_billing_or_shipping_info()
+
+
+@when('I click the save address button')
+def step_impl(context):
+    context.account_page.click_save_address()
+
+
+@then('The address page loads')
+def step_impl(context):
+    context.account_page.check_address_url()
+
+
 @when('I hover the mouse over Women, Tops, Jackets and I click Jackets')
 def step_impl(context):
     context.account_page.select_product()
@@ -13,12 +43,7 @@ def step_impl(context):
 
 @then('the item page opens')
 def step_impl(context):
-    assert context.account_page.check_item_url()
-
-
-@then('the item name is displayed')
-def step_impl(context):
-    assert context.account_page.is_item_name_displayed()
+    context.account_page.check_item_url()
 
 
 @when('I click the Add to cart button')
@@ -26,19 +51,14 @@ def step_impl(context):
     context.account_page.click_add_to_cart()
 
 
-@then('the error messages are displayed') #pas general pentru eroare, care sa fie parametrizat
-def step_impl(context):
-    assert context.account_page.are_error_messages_displayed()
+@then('The error messages "{err_msgs}" are displayed')
+def step_impl(context, err_msgs):
+    context.account_page.are_error_messages_displayed(err_msgs)
 
 
-@then('the messages read "{err}"')
-def step_impl(context, err):
-    assert context.account_page.check_error_messages(err)
-
-
-@when('I choose the size "M"') #de parametrizat marimea
-def step_impl(context):
-    context.account_page.click_size()
+@when('I choose the size "{size}"')
+def step_impl(context, size):
+    context.account_page.click_size(size)
 
 
 @when('I click a different colour') #de parametrizat culoarea
@@ -46,24 +66,9 @@ def step_impl(context):
     context.account_page.change_colour()
 
 
-@then('the item colour matches the chosen colour') #de parametrizat culoarea ((((mai bine scoasa :D))
-def step_impl(context):
-    assert context.account_page.check_if_colour_match()
-
-
-@then('a confirmation message is displayed')
-def step_impl(context):
-    assert context.account_page.is_confirmation_message_displayed()
-
-
-@then('the message reads "{confirmation}"')
-def step_impl(context, confirmation):
-    assert context.account_page.check_confirmation_message(confirmation)
-#cei 2 pasi de mai sus = impreuna
-
-@then('the number of items in the shopping cart is 1')# de parametrizat nr de produse
-def step_impl(context):
-    assert context.account_page.check_number_of_items()
+@then('The confirmation message "{confirmation_msg}" is displayed')
+def step_impl(context, confirmation_msg):
+    context.account_page.is_confirmation_message_displayed(confirmation_msg)
 
 
 @when('I click the shopping cart')
@@ -75,30 +80,10 @@ def step_impl(context):
 def step_impl(context):
     context.account_page.click_proceed_to_checkout()
 
-#nu are rost sa verif daca s-a incarcat pagina:
-# @then('the shipping page loads')
-# def step_impl(context):
-#     assert context.account_page.check_shipping_page()
 
-
-@when('I click on New address button')
+@then('the shipping page loads')
 def step_impl(context):
-    context.account_page.click_new_address()
-
-
-@when('I insert the requested info') #de facut pasi pentru fiecare field in parte
-def step_impl(context):
-    context.account_page.insert_shipping_info()
-
-
-@when('I save the address')
-def step_impl(context):
-    context.account_page.click_save_address()
-
-
-@when('I click on the Ship here button')
-def step_impl(context):
-    context.account_page.click_ship_here()
+    assert context.account_page.check_shipping_page()
 
 
 @when('I click the Next button')
@@ -106,12 +91,12 @@ def step_impl(context):
     context.account_page.click_next()
 
 
-@then('the payment page loads')
+@then('The payment page loads')
 def step_impl(context):
-    assert context.account_page.check_payment_url()
+    context.account_page.check_payment_url()
 
 
-@when('I check the billing address')
+@when('I confirm the billing address')
 def step_impl(context):
     context.account_page.click_same_address()
 
@@ -123,7 +108,9 @@ def step_impl(context):
 
 @then('the success purchase page loads')
 def step_impl(context):
-    assert context.account_page.check_success_url()
+    context.account_page.check_success_url()
 
 
-# DE MODIFICAT = DE PUS ASSERT-UL IN PAGES
+@then('The sign in window opens')
+def step_impl(context):
+    context.account_page.check_sign_in_url()

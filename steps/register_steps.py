@@ -6,19 +6,19 @@ def step_impl(context):
     context.register_page.click_create_account_link()
 
 
-# @then('The create account page loads')
-# def step_impl(context):
-#     assert context.register_page.check_create_account_url()
-
-
-@when('I insert the first name') #de parametrizat
+@then('The create account page loads')
 def step_impl(context):
-    context.register_page.set_first_name()
+    assert context.register_page.check_create_account_url()
 
 
-@when('I insert the last name') #de parametrizat
-def step_impl(context):
-    context.register_page.set_last_name()
+@when('I insert "{first_name}" as first name') #de parametrizat
+def step_impl(context, first_name):
+    context.register_page.set_first_name(first_name)
+
+
+@when('I insert "{last_name}" as last name') #de parametrizat
+def step_impl(context, last_name):
+    context.register_page.set_last_name(last_name)
 
 
 @when('I insert the new email') #de parametrizat
@@ -38,7 +38,7 @@ def step_impl(context):
 
 @then('The new user is logged in')
 def step_impl(context):
-    assert context.register_page.check_account_url()
+    context.register_page.check_account_url()
 
 
 @when('I click on the dropdown arrow')
@@ -53,4 +53,4 @@ def step_impl(context):
 
 @then('The logout page loads')
 def step_impl(context):
-    assert context.register_page.check_logout_url() # de transformat in metoda generala
+    context.register_page.check_logout_url() # de transformat in metoda generala

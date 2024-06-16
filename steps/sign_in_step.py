@@ -11,6 +11,8 @@ def step_impl(context):
     context.sign_in_page.sign_in_button()
 
 
+
+
 @when('I insert "{email}" in the email input')
 def step_impl(context, email):
     context.sign_in_page.set_email(email)
@@ -24,11 +26,6 @@ def step_impl(context, password):
 @when("I click on the Login button")
 def step_impl(context):
     context.sign_in_page.click_login_button()
-
-
-@then("The email error message is displayed")  # un singur pass cu error message displayed parametrizat in steps
-def step_impl(context):
-    assert context.sign_in_page.invalid_email()
 
 
 @when('i insert username "{username}" and password "{password}"')
@@ -51,9 +48,11 @@ def step_impl(context, account_err):
 def step_impl(context, password_err):
     context.sign_in_page.verify_password_error(password_err)
 
+
 @then('The welcome message is displayed')
 def step_impl(context):
-    assert context.sign_in_page.welcome()
+    context.sign_in_page.welcome()
+
 
 @then('The account page loads')
 def step_impl(context):

@@ -8,7 +8,7 @@ from pages.base_page import BasePage
 
 
 class SignInPage(BasePage):
-    SIGN_IN_URL = "https://magento.softwaretestingboard.com/customer/account/login/referer/aHR0cHM6Ly9tYWdlbnRvLnNvZnR3YXJldGVzdGluZ2JvYXJkLmNvbS8%2C/"
+
     SIGN_IN = (By.XPATH, '//a[contains(text(), "Sign In ")]')
     CONSENT = (By.XPATH, '//p[contains(text(), "Consent")]')
     EMAIL = (By.ID, "email")
@@ -24,13 +24,13 @@ class SignInPage(BasePage):
         self.get_page(self.URL)
 
     def signin_page(self):
-        self.get_page((self.SIGN_IN_URL))
+        self.get_page(self.SIGN_IN_URL)
 
     def sign_in_button(self):
-        self.click(self.SIGN_IN)
+        self.click_elem(self.SIGN_IN)
 
     def sign_in_url(self):
-        return self.actual_url() == self.SIGN_IN_URL
+        assert self.actual_url() == self.SIGN_IN_URL
 
     def set_email(self, email):
         WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(self.EMAIL))
@@ -43,11 +43,11 @@ class SignInPage(BasePage):
         self.send_text(self.PASSWORD, password)
 
     def click_login_button(self):
-        self.click(self.LOGIN_BUTTON)
+        self.click_elem(self.LOGIN_BUTTON)
         time.sleep(2)
 
     def invalid_email(self):
-        return self.is_displayed(self.INVALID_EMAIL)
+        assert self.is_displayed(self.INVALID_EMAIL)
 
     def verify_email_error(self, error_message):
         assert error_message in self.get_text(self.INVALID_EMAIL)
@@ -62,4 +62,4 @@ class SignInPage(BasePage):
         return self.actual_url() == self.ACCOUNT_URL
 
     def welcome(self):
-        return self.is_displayed(self.WELCOME_MSG)
+        assert self.is_displayed(self.WELCOME_MSG)
