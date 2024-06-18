@@ -6,7 +6,7 @@ I chose to check the website of the Luma. The evaluation of the " Sign In" and "
 
 **LANGUAGE, IDE, BOOKSTORES**
 
-I chose to perform the testing using the Python programming language and the PyCharm IDE. I used Selenium, webdriver-manager, behave and behave-html-formatter libraries, facker, time random, unittest to automate the interaction with the Luma website. The "Python Packages" section of PyCharm can be accessed to install these libraries. After adding the name of the desired library in the field, I pressed the "Install" button.
+I chose to perform the testing using the Python programming language and the PyCharm IDE. I used Selenium, webdriver-manager, behave and behave-html-formatter libraries, faker, time random, unittest to automate the interaction with the Luma website. The "Python Packages" section of PyCharm can be accessed to install these libraries. After adding the name of the desired library in the field, I pressed the "Install" button.
 
 **THE IMPORTANCE OF AUTOMATED TESTING**
 
