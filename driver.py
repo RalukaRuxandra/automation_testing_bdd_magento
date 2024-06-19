@@ -1,13 +1,8 @@
-from selenium import webdriver
-# from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-# from webdriver_manager.firefox import GeckoDriverManager
+from seleniumbase import Driver
 
 
 class Driver:
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service)
+    driver = Driver()
     driver.maximize_window()
     driver.implicitly_wait(1)
 

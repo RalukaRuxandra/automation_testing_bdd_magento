@@ -15,6 +15,7 @@ Feature: Test the functionality of the Register page
     Then The new user is logged in
 
     Scenario: Check if a registered user can logout
+    When I click on sign in button
     When I click on the dropdown arrow
     When I click on the sign out link
     Then The logout page loads

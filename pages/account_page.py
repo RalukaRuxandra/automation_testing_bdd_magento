@@ -1,5 +1,6 @@
-
+import time
 import unittest
+from time import sleep
 
 from selenium.webdriver import Keys, ActionChains
 from selenium.webdriver.common.by import By
@@ -32,7 +33,7 @@ class AccountPage(BasePage, unittest.TestCase):
     PURPLE_COLOUR_ITEM = (By.XPATH, '//img[@src="https://magento.softwaretestingboard.com/pub/media/catalog/product/cache/d34482110da20c5e24f97c38fb219fb3/w/j/wj12-purple_main_1.jpg"]')
     PURPLE_COLOUR_BUTTON = (By.XPATH, '//div[@id="option-label-color-93-item-57"]')
     CONFIRMATION_MESSAGE = (By.XPATH, '//div[@data-bind="html: $parent.prepareMessageForHtml(message.text)"]')
-    ITEMS_IN_CART = (By.XPATH, '//span[@class="counter-number"]')
+    ITEMS_IN_CART = (By.XPATH, '//a[@class="action showcart"]')
     PROCEED_TO_CHECKOUT = (By.XPATH, '//button[@id="top-cart-btn-checkout"]')
     SHIPPING_URL = 'https://magento.softwaretestingboard.com/checkout/#shipping'
     NEW_ADDRESS_BUTTON = (By.XPATH, '//*[@id="checkout-step-shipping"]/div[2]/button/span')
@@ -45,10 +46,10 @@ class AccountPage(BasePage, unittest.TestCase):
     COUNTRY_BOX = (By.ID, 'country')
     PHONE_BOX = (By.XPATH, '//input[@id="telephone"]')
     CHECKBOX_BUTTON = (By.ID, 'shipping-save-in-address-book')
-    NEXT_BUTTON = (By.XPATH, '//button[@class="button action continue primary"]')
+    NEXT_BUTTON = (By.XPATH, '//div[@id="shipping-method-buttons-container"]//button')
     PAYMENT_URL = 'https://magento.softwaretestingboard.com/checkout/#payment'
     SAME_ADDRESSES = (By.XPATH, '//input[@type="checkbox"]')
-    PLACE_ORDER_BUTTON = (By.XPATH, '//button[@class="action action-apply"]')
+    PLACE_ORDER_BUTTON = (By.XPATH, '//button[@class="action primary checkout"]')
     SUCCESS_PURCHASE_URL = 'https://magento.softwaretestingboard.com/checkout/onepage/success/'
     CUSTOMER_MENU_BUTTON = (By.XPATH, '//div[@class="panel header"]//button[@type="button"]')
     MY_ACCOUNT_BUTTON = (By.XPATH, '//div[@aria-hidden="false"]//a[normalize-space()="My Account"]')
@@ -102,6 +103,7 @@ class AccountPage(BasePage, unittest.TestCase):
         assert self.is_displayed(self.CONFIRMATION_MESSAGE) and self.get_text(self.CONFIRMATION_MESSAGE) == confirmation_msg
 
     def click_cart(self):
+        time.sleep(2)
         self.click_elem(self.ITEMS_IN_CART)
 
     def click_proceed_to_checkout(self):
@@ -153,7 +155,8 @@ class AccountPage(BasePage, unittest.TestCase):
         assert self.ADDRESS_URL == self.actual_url()
 
     def click_next(self):
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(self.NEXT_BUTTON))
+        # WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.NEXT_BUTTON))
+        time.sleep(2)
         self.click_elem(self.NEXT_BUTTON)
 
     def check_payment_url(self):
@@ -164,10 +167,12 @@ class AccountPage(BasePage, unittest.TestCase):
         self.click_checkbox(self.SAME_ADDRESSES)
 
     def click_place_order(self):
+        time.sleep(2)
         self.click_elem(self.PLACE_ORDER_BUTTON)
 
     def check_success_url(self):
-        assert self.actual_url() == self.SUCCESS_PURCHASE_URL
+        time.sleep(3)
+        assert self.actual_url() == self.SUCCESS_PURCHASE_URL, f'Error: Expected url: {self.SUCCESS_PURCHASE_URL}, actual: {self.actual_url()}'
 
     def check_sign_in_url(self):
         assert self.actual_url() == self.SIGN_IN_URL

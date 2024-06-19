@@ -50,6 +50,7 @@ class RegisterPage(BasePage):
         assert self.actual_url() == self.ACCOUNT_URL
 
     def click_dropdown_arrow(self):
+        time.sleep(2)
         self.click_elem(self.DROPDOWN_ARROW)
 
     def click_sign_out(self):
